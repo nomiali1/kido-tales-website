@@ -1,286 +1,120 @@
-<!--
-KidoTales — English Cartoon & Learning (index.html)
-Instructions (Urdu):
-1) Save this file as `index.html` and upload / paste into your GitHub repository (replace the existing index.html).
-2) Replace the sample YouTube IDs in the `videos` array with your own video IDs.
-3) Open the live link after commit: https://yourusername.github.io/your-repo-name/
-
-Features:
-- Bright cartoon-themed layout suitable for kids
-- Learning sections: Alphabet (A–Z), Numbers (1–10), Colors, Animals
-- Interactive cards with simple animations
-- YouTube video gallery (embed)
-- Responsive and single-file (no build tools required)
--->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KidoTales — Fun Stories & Learning for Kids</title>
-  <meta name="description" content="KidoTales — Cartoon stories and learning for kids. ABCs, numbers, colors, animals and videos." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kido Tales – Fun Learning for Kids</title>
   <style>
-    :root{--bg:#E6F7FF;--card:#fff;--muted:#6B7280;--accent1:#FFB86B;--accent2:#7EE7A6;--purple:#CBA3FF}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;background:linear-gradient(180deg,#E6F7FF 0%, #FDFDFD 80%);color:#14213D}
-    header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;box-shadow:0 8px 20px rgba(16,24,40,.08)}
-    .title{font-size:20px;font-weight:700}
-    .tag{font-size:12px;color:var(--muted)}
-
-    .container{max-width:1100px;margin:16px auto;padding:0 16px}
-    .hero{background:linear-gradient(180deg,#FFF 0%, rgba(255,255,255,0.8) 100%);border-radius:18px;padding:18px;display:flex;gap:18px;align-items:center;box-shadow:0 12px 30px rgba(16,24,40,0.06)}
-    .hero-left{flex:1}
-    .hero-right{width:300px}
-    .hero h1{margin:0;font-size:28px}
-    .hero p{margin:6px 0 0;color:var(--muted)}
-
-    /* playful scene */
-    .scene{position:relative;height:140px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#AEE1FF 0%, #F7F9FF 100%);display:flex;align-items:center;justify-content:center}
-    .sun{position:absolute;top:12px;right:18px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#FFF1C9,#FFD36B 40%,#FFB86B 100%);box-shadow:0 10px 30px rgba(255,184,107,.25);animation:spin 30s linear infinite}
-    @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-    .cloud{position:absolute;background:#fff;padding:8px 18px;border-radius:40px;box-shadow:0 8px 20px rgba(2,6,23,.06);opacity:.95}
-    .cloud.c1{left:18px;top:18px;animation:float 9s ease-in-out infinite}
-    .cloud.c2{left:120px;top:34px;animation:float 11s ease-in-out infinite}
-    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(10px)}100%{transform:translateY(0)}}
-
-    /* layout */
-    .grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
-    @media(min-width:900px){.grid{grid-template-columns:1fr 360px}}
-
-    .card{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 8px 22px rgba(16,24,40,.06)}
-    .tabs{display:flex;gap:8px;flex-wrap:wrap}
-    .tab{padding:8px 10px;border-radius:10px;background:linear-gradient(90deg,#fff,#fbfbff);cursor:pointer;border:1px solid rgba(0,0,0,.05);font-weight:600}
-    .tab.active{background:linear-gradient(90deg,var(--accent2),var(--accent1));color:#fff}
-
-    /* learning area */
-    .play-area{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:12px}
-    .card-item{background:linear-gradient(180deg,#fff,#fff);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:110px;box-shadow:0 8px 20px rgba(16,24,40,.04);transition:transform .18s ease,box-shadow .18s}
-    .card-item:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(16,24,40,.08)}
-    .big{font-size:28px;font-weight:800}
-    .small{color:var(--muted);font-size:13px}
-
-    /* colors list */
-    .color-swatch{width:44px;height:44px;border-radius:8px;border:3px solid rgba(255,255,255,.6);box-shadow:0 6px 18px rgba(0,0,0,.06)}
-
-    /* videos */
-    .videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .video-embed{aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:6px solid #fff}
-
-    /* sidebar */
-    aside .card{position:sticky;top:18px}
-    .subscribe{display:flex;gap:8px;align-items:center}
-    .input{padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,.06);flex:1}
-    .subbtn{padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),#FF8A8A);color:white;border:none;cursor:pointer}
-
-    footer{max-width:1100px;margin:28px auto 60px;color:var(--muted);font-size:13px;padding:0 16px}
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom, #fceabb, #f8b500);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #ff6f61;
+      color: white;
+      padding: 20px 0;
+      font-size: 2em;
+      animation: slideDown 1.5s ease;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    section {
+      margin: 30px auto;
+      max-width: 900px;
+      background: #fff8e1;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h2 {
+      color: #ff6f61;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .card {
+      background-color: #ffe082;
+      padding: 20px;
+      border-radius: 15px;
+      transition: transform 0.3s;
+      font-size: 1.5em;
+    }
+    .card:hover {
+      transform: scale(1.1);
+      background-color: #ffcc80;
+    }
+    .video-section iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+    }
+    footer {
+      background-color: #ff6f61;
+      color: white;
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <div class="logo">KT</div>
-      <div>
-        <div class="title">KidoTales</div>
-        <div class="tag">Fun Stories & Learning for Kids</div>
-      </div>
-    </div>
-    <nav>
-      <button class="tab" onclick="scrollToSection('alphabet')">Alphabet</button>
-      <button class="tab" onclick="scrollToSection('numbers')">Numbers</button>
-      <button class="tab" onclick="scrollToSection('colors')">Colors</button>
-      <button class="tab" onclick="scrollToSection('animals')">Animals</button>
-      <button class="tab" onclick="scrollToSection('videos')">Videos</button>
-    </nav>
+    🌈 Kido Tales – Fun Learning for Kids 🎵
   </header>
 
-  <main class="container">
-    <section class="hero card">
-      <div class="hero-left">
-        <h1>Welcome to KidoTales</h1>
-        <p>Bright cartoons, short stories and fun learning for children. Learn ABCs, numbers, colors and animals with playful animations.</p>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="tab" onclick="scrollToSection('alphabet')">Start with ABC</button>
-          <button class="tab" onclick="scrollToSection('videos')">Watch Videos</button>
-        </div>
-        <div style="margin-top:12px;position:relative">
-          <div class="scene" aria-hidden="true">
-            <div class="sun"></div>
-            <div class="cloud c1">☁️</div>
-            <div class="cloud c2">☁️</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="card" style="text-align:center">
-          <strong>Tip for parents:</strong>
-          <p style="margin:6px 0 0;color:var(--muted)">Use with supervision. Click a card to hear/see the item — replace YouTube IDs with your channel's videos.</p>
-        </div>
-      </div>
-    </section>
-
+  <section>
+    <h2>Learn ABC</h2>
     <div class="grid">
-      <section class="card" id="learning">
-        <h2 id="alphabet">Alphabet (A - Z)</h2>
-        <div class="tabs" id="alphabet-tabs"></div>
-        <div class="play-area" id="alphabet-area"></div>
-
-        <h2 id="numbers" style="margin-top:18px">Numbers (1 - 10)</h2>
-        <div class="play-area" id="numbers-area"></div>
-
-        <h2 id="colors" style="margin-top:18px">Colors</h2>
-        <div class="play-area" id="colors-area"></div>
-
-        <h2 id="animals" style="margin-top:18px">Animals</h2>
-        <div class="play-area" id="animals-area"></div>
-      </section>
-
-      <aside>
-        <div class="card">
-          <h3 style="margin:0 0 8px">YouTube Videos</h3>
-          <p style="margin:0 0 10px;color:var(--muted)">Watch sample cartoon videos below. Replace IDs with your own.</p>
-          <div class="videos-grid" id="video-grid"></div>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div class="card">
-          <h3 style="margin:0 0 8px">Subscribe</h3>
-          <div class="subscribe">
-            <input class="input" placeholder="Email address" aria-label="Email address" />
-            <button class="subbtn">Join</button>
-          </div>
-        </div>
-      </aside>
+      <div class="card">A</div>
+      <div class="card">B</div>
+      <div class="card">C</div>
+      <div class="card">D</div>
+      <div class="card">E</div>
+      <div class="card">F</div>
     </div>
+  </section>
 
-  </main>
+  <section>
+    <h2>Learn Numbers</h2>
+    <div class="grid">
+      <div class="card">1</div>
+      <div class="card">2</div>
+      <div class="card">3</div>
+      <div class="card">4</div>
+      <div class="card">5</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Colors & Animals</h2>
+    <div class="grid">
+      <div class="card">🐶 Dog</div>
+      <div class="card">🐱 Cat</div>
+      <div class="card">🐘 Elephant</div>
+      <div class="card">🐰 Rabbit</div>
+      <div class="card">🦁 Lion</div>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <h2>🎬 Watch and Learn</h2>
+    <iframe src="https://www.youtube.com/embed/tVlcKp3bWH8" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/hq3yfQnllfQ" allowfullscreen></iframe>
+  </section>
 
   <footer>
-    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
-      <div>© <strong>KidoTales</strong> — Made with ❤️ for kids</div>
-      <div style="color:var(--muted)">Replace content with your own videos and stories</div>
-    </div>
+    © 2025 Kido Tales | Designed with ❤️ for Kids Learning
   </footer>
-
-  <script>
-    // Data
-    const alphabet = Array.from({length:26},(_,i)=>String.fromCharCode(65+i)).map(letter=>({letter,word:exampleWord(letter)}));
-    const numbers = Array.from({length:10},(_,i)=>({n:i+1,word:exampleNumber(i+1)}));
-    const colors = [
-      {name:'Red',hex:'#FF4C4C'},
-      {name:'Orange',hex:'#FFB86B'},
-      {name:'Yellow',hex:'#FFD36B'},
-      {name:'Green',hex:'#6EE7B7'},
-      {name:'Blue',hex:'#6BB0FF'},
-      {name:'Purple',hex:'#CBA3FF'},
-      {name:'Pink',hex:'#FFB3D2'},
-      {name:'Brown',hex:'#C89A6B'},
-      {name:'Gray',hex:'#9CA3AF'},
-      {name:'Black',hex:'#111827'}
-    ];
-    const animals = [
-      {name:'Cat',desc:'A small friendly pet.'},
-      {name:'Dog',desc:'Loyal and playful.'},
-      {name:'Elephant',desc:'Large with a trunk.'},
-      {name:'Lion',desc:'King of the jungle.'},
-      {name:'Monkey',desc:'Loves to swing.'},
-      {name:'Bird',desc:'Can fly in the sky.'}
-    ];
-
-    // Sample YouTube video IDs - REPLACE these with your own IDs
-    const videos = ['dQw4w9WgXcQ','M7lc1UVf-VE','hY7m5jjJ9mM','VIDEO_ID_4'];
-
-    function exampleWord(letter){
-      // simple words for letters (A->Apple etc)
-      const map = {A:'Apple',B:'Ball',C:'Cat',D:'Dog',E:'Elephant',F:'Fish',G:'Guitar',H:'Hat',I:'Ice cream',J:'Juice',K:'Kite',L:'Lion',M:'Monkey',N:'Nest',O:'Orange',P:'Penguin',Q:'Queen',R:'Rabbit',S:'Sun',T:'Tree',U:'Umbrella',V:'Van',W:'Whale',X:'Xylophone',Y:'Yacht',Z:'Zebra'};
-      return map[letter]||'';
-    }
-    function exampleNumber(n){
-      const words=['One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
-      return words[n-1]||n.toString();
-    }
-
-    // Render Alphabet
-    const alphabetArea = document.getElementById('alphabet-area');
-    alphabet.forEach(item=>{
-      const el = document.createElement('button');
-      el.className='card-item';
-      el.innerHTML = `<div class="big">${item.letter}</div><div class="small">${item.word}</div>`;
-      el.addEventListener('click',()=>{
-        showPopup(item.letter, item.word);
-      });
-      alphabetArea.appendChild(el);
-    });
-
-    // Render Numbers
-    const numbersArea = document.getElementById('numbers-area');
-    numbers.forEach(item=>{
-      const el = document.createElement('div');
-      el.className='card-item';
-      el.innerHTML = `<div class="big">${item.n}</div><div class="small">${item.word}</div>`;
-      el.addEventListener('click',()=> showPopup(item.n, item.word));
-      numbersArea.appendChild(el);
-    });
-
-    // Render Colors
-    const colorsArea = document.getElementById('colors-area');
-    colors.forEach(c=>{
-      const el = document.createElement('div');
-      el.className='card-item';
-      el.innerHTML = `<div class="color-swatch" style="background:${c.hex}"></div><div class="small">${c.name}</div>`;
-      el.addEventListener('click',()=> showPopup(c.name, c.hex));
-      colorsArea.appendChild(el);
-    });
-
-    // Render Animals
-    const animalsArea = document.getElementById('animals-area');
-    animals.forEach(a=>{
-      const el = document.createElement('div');
-      el.className='card-item';
-      el.innerHTML = `<div style="font-size:22px;font-weight:700">${a.name}</div><div class="small">${a.desc}</div>`;
-      el.addEventListener('click',()=> showPopup(a.name, a.desc));
-      animalsArea.appendChild(el);
-    });
-
-    // Render Videos
-    const videoGrid = document.getElementById('video-grid');
-    videos.forEach(id=>{
-      const wrapper = document.createElement('div');
-      wrapper.className='video-embed';
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${id}`;
-      iframe.setAttribute('allowfullscreen','');
-      iframe.style.width='100%';iframe.style.height='100%';iframe.style.border='0';
-      wrapper.appendChild(iframe);
-      videoGrid.appendChild(wrapper);
-    });
-
-    // Popup (simple) - use browser alert for simplicity on small devices
-    function showPopup(title, text){
-      // For now: use a friendly alert-like box
-      const modal = document.createElement('div');
-      modal.style.position='fixed';modal.style.left='0';modal.style.top='0';modal.style.right='0';modal.style.bottom='0';modal.style.display='flex';modal.style.alignItems='center';modal.style.justifyContent='center';modal.style.background='rgba(2,6,23,.4)';
-      const card = document.createElement('div');
-      card.style.background='#fff';card.style.padding='18px';card.style.borderRadius='12px';card.style.maxWidth='420px';card.style.width='90%';card.innerHTML = `<div style="font-weight:800;font-size:22px;margin-bottom:8px">${title}</div><div style="color:${typeof text==='string' && text.startsWith('#')?text:'#6B7280'};margin-bottom:12px">${text}</div><div style="text-align:right"><button class="tab" id="closeBtn">Close</button></div>`;
-      modal.appendChild(card);
-      document.body.appendChild(modal);
-      document.getElementById('closeBtn').addEventListener('click',()=>document.body.removeChild(modal));
-    }
-
-    function scrollToSection(id){
-      const el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-    }
-
-    // Accessibility: keyboard quick jump
-    document.addEventListener('keydown', e=>{
-      if(e.key==='A' || e.key==='a') scrollToSection('alphabet');
-      if(e.key==='N' || e.key==='n') scrollToSection('numbers');
-      if(e.key==='C' || e.key==='c') scrollToSection('colors');
-    });
-
-  </script>
 </body>
 </html>
+
