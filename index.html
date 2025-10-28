@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kido Tales - Learn with Fun!</title>
+  <title>Kido Tales - Kids Learning with Fun | ABC, Numbers, and Songs</title>
+
+  <!-- 🌍 SEO Meta Tags -->
+  <meta name="description" content="Kido Tales is a fun learning website for kids. Learn ABC, numbers, colors, and watch educational videos. Interactive sound and cartoon design for children!">
+  <meta name="keywords" content="Kido Tales, kids learning, ABC for kids, learning website, nursery rhymes, educational videos, alphabet sounds, kids education, online learning for kids">
+  <meta name="author" content="Numan Ishaq">
+  <meta name="robots" content="index, follow">
+
+  <!-- Social Preview -->
+  <meta property="og:title" content="Kido Tales - Fun Learning for Kids">
+  <meta property="og:description" content="Learn alphabets, numbers, and colors with sound and YouTube videos. Perfect for children!">
+  <meta property="og:url" content="https://nomiali1.github.io/kido-tales-website/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://nomiali1.github.io/kido-tales-website/kido-logo.png">
+
   <style>
     body {
       font-family: 'Comic Sans MS', cursive;
@@ -79,18 +93,17 @@
     <iframe src="https://www.youtube.com/embed/ho08YLYDM88" allowfullscreen></iframe>
   </section>
 
-  <footer>© 2025 Kido Tales | Learn with Fun</footer>
+  <footer>© 2025 Kido Tales | Created by Numan Ishaq | Learn with Fun</footer>
 
   <script>
     const alphabetContainer = document.getElementById('alphabetContainer');
     const sounds = {
-      A: 'https://www.soundjay.com/english/a-for-apple.mp3',
-      B: 'https://www.soundjay.com/english/b-for-ball.mp3',
-      C: 'https://www.soundjay.com/english/c-for-cat.mp3'
-      // آپ باقی حروف بھی شامل کر سکتے ہیں جیسے D, E, F وغیرہ
+      A: 'https://www.soundjay.com/button/beep-07a.mp3',
+      B: 'https://www.soundjay.com/button/beep-08b.mp3',
+      C: 'https://www.soundjay.com/button/beep-09.mp3'
+      // آپ باقی حروف بھی شامل کر سکتے ہیں
     };
 
-    // A to Z letters بنائیں
     for (let i = 65; i <= 90; i++) {
       const letter = String.fromCharCode(i);
       const div = document.createElement('div');
@@ -100,7 +113,10 @@
       div.addEventListener('click', () => {
         const sound = new Audio(sounds[letter] || '');
         if (sound.src) sound.play();
-        alert(letter + " for " + (letter === 'A' ? 'Apple 🍎' : letter === 'B' ? 'Ball ⚽' : 'Cat 🐱'));
+        alert(letter + " for " + 
+          (letter === 'A' ? 'Apple 🍎' :
+           letter === 'B' ? 'Ball ⚽' :
+           letter === 'C' ? 'Cat 🐱' : 'Cool! 😄'));
       });
 
       alphabetContainer.appendChild(div);
@@ -109,5 +125,4 @@
 
 </body>
 </html>
-
 
