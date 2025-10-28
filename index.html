@@ -1,6 +1,139 @@
 <!doctype html>
 <html lang="en">
 <head>
+  
+
+<!-- SEO Meta -->
+<meta name="description" content="Kido Tales is an interactive learning website for kids. Learn ABC, numbers, colors, shapes, animals, fruits with sounds, videos, and school books.">
+<meta name="keywords" content="Kido Tales, kids learning, alphabets, numbers, colors, animals, fruits, shapes, school books, educational videos, interactive learning">
+<meta name="author" content="Numan Ishaq">
+<meta name="robots" content="index, follow">
+
+<!-- Social Preview -->
+<meta property="og:title" content="Kido Tales - Fun Learning for Kids">
+<meta property="og:description" content="Interactive website for kids with alphabets, numbers, animals, fruits, colors, shapes, school books, and learning videos.">
+<meta property="og:url" content="https://nomiali1.github.io/kido-tales-website/">
+<meta property="og:type" content="website">
+
+<style>
+body{font-family:'Comic Sans MS',cursive;margin:0;text-align:center;background:linear-gradient(to bottom right,#ffd6ff,#caffbf);overflow-x:hidden;}
+header{background-color:#ff70a6;color:white;padding:25px;font-size:2.5em;animation:slideDown 1s ease-in-out;}
+@keyframes slideDown{from{transform:translateY(-100px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+h2{margin-top:30px;color:#333;}
+.section-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:15px;padding:20px;}
+.card{background-color:#ffb3c6;color:white;font-size:1.8em;border-radius:20px;padding:20px;cursor:pointer;transition: transform 0.2s, background-color 0.2s;}
+.card:hover{transform: scale(1.2) rotate(-5deg);background-color:#ff70a6;box-shadow: 0px 5px 15px rgba(0,0,0,0.3);}
+iframe{width:320px;height:200px;border-radius:20px;margin:10px;}
+footer{background-color:#a2d2ff;padding:15px;margin-top:40px;}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0);}40%{transform:translateY(-15px);}60%{transform:translateY(-10px);}}
+</style>
+</head>
+<body>
+
+<!-- Background music -->
+<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+
+<header>Kido Tales - Fun Learning for Kids 🎨</header>
+
+<h2>🔤 Learn Alphabets</h2>
+<div class="section-container" id="alphabetContainer"></div>
+
+<h2>🔢 Learn Numbers</h2>
+<div class="section-container" id="numberContainer"></div>
+
+<h2>🎨 Learn Colors</h2>
+<div class="section-container" id="colorContainer"></div>
+
+<h2>🐶 Learn Animals</h2>
+<div class="section-container" id="animalContainer"></div>
+
+<h2>🍎 Learn Fruits</h2>
+<div class="section-container" id="fruitContainer"></div>
+
+<h2>⬜ Learn Shapes</h2>
+<div class="section-container" id="shapeContainer"></div>
+
+<section>
+<h2>📚 Kids School Books</h2>
+<ul style="list-style:none; padding:0; font-size:1.2em;">
+  <li><a href="https://example.com/english.pdf" target="_blank">English Book 📖</a></li>
+  <li><a href="https://example.com/math.pdf" target="_blank">Math Book ➗</a></li>
+  <li><a href="https://example.com/urdu.pdf" target="_blank">Urdu Book 📝</a></li>
+</ul>
+</section>
+
+<section>
+<h2>🎬 Learning Videos</h2>
+<iframe src="https://www.youtube.com/embed/hq3yfQnllfQ" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/tVlcKp3bWH8" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/ho08YLYDM88" allowfullscreen></iframe>
+</section>
+
+<footer>© 2025 Kido Tales | Created by Numan Ishaq | Learn with Fun</footer>
+
+<script>
+// Background music
+const music = document.getElementById('bgMusic');
+
+// Alphabets
+const alphabetContainer=document.getElementById('alphabetContainer');
+const alphabetSounds={A:'https://www.soundjay.com/button/beep-07a.mp3',B:'https://www.soundjay.com/button/beep-08b.mp3',C:'https://www.soundjay.com/button/beep-09.mp3'};
+for(let i=65;i<=90;i++){
+  const letter=String.fromCharCode(i);
+  const div=document.createElement('div');
+  div.className='card';
+  div.textContent=letter;
+  div.addEventListener('click',()=>{
+    const sound=new Audio(alphabetSounds[letter]||'https://www.soundjay.com/button/beep-07a.mp3'); sound.play();
+    div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600);
+    alert(letter+' for '+(letter==='A'?'Apple 🍎':letter==='B'?'Ball ⚽':letter==='C'?'Cat 🐱':'Cool! 😄'));
+  });
+  alphabetContainer.appendChild(div);
+}
+
+// Numbers 1-20
+const numberContainer=document.getElementById('numberContainer');
+for(let i=1;i<=20;i++){
+  const div=document.createElement('div'); div.className='card'; div.textContent=i;
+  div.addEventListener('click',()=>{new Audio('https://www.soundjay.com/button/beep-09.mp3').play(); div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600); alert('Number '+i);});
+  numberContainer.appendChild(div);
+}
+
+// Colors
+const colorContainer=document.getElementById('colorContainer');
+const colors=['Red','Blue','Green','Yellow','Pink','Purple','Orange','Brown','Black','White'];
+colors.forEach(c=>{const div=document.createElement('div'); div.className='card'; div.textContent=c; div.style.backgroundColor=c.toLowerCase();
+  div.addEventListener('click',()=>{new Audio('https://www.soundjay.com/button/beep-08b.mp3').play(); div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600); alert('Color: '+c);});
+  colorContainer.appendChild(div);
+});
+
+// Animals
+const animalContainer=document.getElementById('animalContainer');
+const animals=[{name:'Dog',sound:'https://www.soundjay.com/animal/dog-bark-01.mp3'},{name:'Cat',sound:'https://www.soundjay.com/animal/cat-meow-1.mp3'},{name:'Elephant',sound:'https://www.soundjay.com/animal/elephant-1.mp3'},{name:'Lion',sound:'https://www.soundjay.com/animal/lion-roar-1.mp3'},{name:'Monkey',sound:'https://www.soundjay.com/animal/monkey-1.mp3'}];
+animals.forEach(a=>{const div=document.createElement('div'); div.className='card'; div.textContent=a.name;
+  div.addEventListener('click',()=>{new Audio(a.sound).play(); div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600);});
+  animalContainer.appendChild(div);
+});
+
+// Fruits
+const fruitContainer=document.getElementById('fruitContainer');
+const fruits=[{name:'Apple',sound:'https://www.soundjay.com/button/button-3.mp3'},{name:'Banana',sound:'https://www.soundjay.com/button/button-2.mp3'}];
+fruits.forEach(f=>{const div=document.createElement('div'); div.className='card'; div.textContent=f.name;
+  div.addEventListener('click',()=>{new Audio(f.sound).play(); div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600);});
+  fruitContainer.appendChild(div);
+});
+
+// Shapes
+const shapeContainer=document.getElementById('shapeContainer');
+const shapes=[{name:'Circle',sound:'https://www.soundjay.com/button/beep-07a.mp3'},{name:'Square',sound:'https://www.soundjay.com/button/beep-08b.mp3'}];
+shapes.forEach(s=>{const div=document.createElement('div'); div.className='card'; div.textContent=s.name;
+  div.addEventListener('click',()=>{new Audio(s.sound).play(); div.style.animation='bounce 0.6s'; setTimeout(()=>{div.style.animation='';},600);});
+  shapeContainer.appendChild(div);
+});
+</script>
+
+</body>
+</html>
   <meta name="google-site-verification" content="abc123xyz456789" />
 
   <meta charset="utf-8" />
