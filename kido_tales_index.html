@@ -1,0 +1,230 @@
+<!--
+KidoTales - Single-file demo (index.html)
+Instructions:
+1. Save this file as `index.html`.
+2. Replace YOUR_YOUTUBE_VIDEO_ID with your real YouTube video id in the iframe src.
+3. To preview locally: open index.html in a browser.
+4. To publish: create a GitHub repository and push this file, then enable GitHub Pages (or use Netlify/Vercel).
+
+Features:
+- Bright kid-friendly design
+- CSS animations (sun, clouds, bouncing characters)
+- Stories section with multiple cards and next/prev navigation
+- YouTube video gallery section (embeds)
+- Responsive layout
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KidoTales — Fun Stories & Learning for Kids</title>
+  <style>
+    :root{
+      --bg:#AEE1FF;
+      --accent:#FFB86B;
+      --card:#FFFFFF;
+      --muted:#6B7280;
+      --primary:#FF6B6B;
+      --green:#6EE7B7;
+      --shadow: 0 8px 22px rgba(17,24,39,0.08);
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Noto Sans', sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#AEE1FF 0%, #F7F9FF 70%);color:#111}
+    header{padding:24px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--primary));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;box-shadow:var(--shadow)}
+    .title{font-size:20px;font-weight:700}
+    .tag{font-size:12px;color:var(--muted)}
+
+    /* Hero */
+    .hero{position:relative;padding:20px;border-radius:18px;margin:0 20px 18px;background:linear-gradient(180deg,rgba(255,255,255,0.5),rgba(255,255,255,0.35));box-shadow:var(--shadow);overflow:hidden}
+    .scene{height:260px;position:relative}
+    .sun{position:absolute;right:30px;top:20px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #FFF1C9,#FFD36B 40%, #FFB86B 100%);box-shadow: 0 8px 30px rgba(255,184,107,0.3);transform-origin:center;animation:spin 22s linear infinite}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .cloud{position:absolute;background:#fff;border-radius:50px;padding:10px 24px;box-shadow:0 6px 18px rgba(0,0,0,0.08);opacity:0.95}
+    .cloud.c1{left:20px;top:40px;transform:translateX(-10px);animation:float 8s ease-in-out infinite}
+    .cloud.c2{left:120px;top:10px;transform:translateX(0);animation:float 10s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(10px)}100%{transform:translateY(0)}}
+
+    .ground{position:absolute;left:0;right:0;bottom:-12px;height:120px;background:linear-gradient(180deg,#7EE7A6,#53C48A);border-top-left-radius:60px;border-top-right-radius:60px}
+    .characters{position:absolute;left:28px;bottom:10px;display:flex;gap:14px;align-items:flex-end}
+    .char{width:84px;height:84px;border-radius:20px;background:linear-gradient(180deg,#FFF,#FFDDE6);display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:var(--shadow);transform-origin:center;animation:bounce 4s infinite}
+    .char.c2{background:linear-gradient(180deg,#FFF,#DDEBFF);animation-delay:0.4s}
+    .char.c3{background:linear-gradient(180deg,#FFF,#FFF3D6);animation-delay:0.8s}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+    .hero-content{display:flex;align-items:center;gap:18px;padding:14px}
+    .hero h1{margin:0;font-size:28px}
+    .hero p{margin:4px 0 0;color:var(--muted)}
+
+    /* Layout */
+    main{display:grid;grid-template-columns:1fr;gap:18px;padding:0 20px 80px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){main{grid-template-columns:1fr 420px} .grid{grid-column:1 / span 1} }
+
+    /* Stories */
+    .card{background:var(--card);padding:16px;border-radius:14px;box-shadow:var(--shadow)}
+    .stories{display:flex;flex-direction:column;gap:12px}
+    .story-card{display:flex;gap:12px;align-items:flex-start}
+    .story-thumb{width:120px;height:90px;border-radius:12px;background:linear-gradient(180deg,#FFDDE6,#FFF3F3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700}
+    .story-body h3{margin:0 0 6px;font-size:16px}
+    .story-body p{margin:0;color:var(--muted);font-size:14px}
+
+    .story-controls{display:flex;gap:8px;margin-top:10px}
+    .btn{padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#FFF,#F6F6F9);border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+
+    /* Video gallery */
+    .videos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .video-embed{aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:6px solid #fff}
+
+    /* Sidebar */
+    .sidebar{position:sticky;top:18px}
+    .subscribe{display:flex;gap:10px;align-items:center}
+    .input{padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);flex:1}
+    .subbtn{padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--primary),#FF8A8A);color:white;border:none;cursor:pointer}
+
+    footer{max-width:1200px;margin:28px auto 60px;color:var(--muted);font-size:13px;padding:0 20px}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">KT</div>
+      <div>
+        <div class="title">KidoTales</div>
+        <div class="tag">Fun Stories & Learning for Kids</div>
+      </div>
+    </div>
+    <nav>
+      <button class="btn" onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">Stories</button>
+      <button class="btn" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Videos</button>
+    </nav>
+  </header>
+
+  <section class="hero card" aria-label="Hero - KidoTales">
+    <div class="scene">
+      <div class="sun" aria-hidden="true"></div>
+      <div class="cloud c1">☁️</div>
+      <div class="cloud c2">☁️</div>
+      <div class="ground"></div>
+      <div class="characters">
+        <div class="char c1">A</div>
+        <div class="char c2">B</div>
+        <div class="char c3">C</div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div>
+        <h1>Welcome to KidoTales</h1>
+        <p>Bright stories, playful learning and safe videos for kids. Watch, read and learn!</p>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn" onclick="document.getElementById('stories').scrollIntoView({behavior:'smooth'})">Read Stories</button>
+          <button class="btn" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Watch Videos</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid">
+      <!-- Stories -->
+      <section id="stories" class="card">
+        <h2 style="margin:0 0 8px">Stories for Kids</h2>
+        <div class="stories" id="story-list">
+          <!-- Story templates inserted by JS -->
+        </div>
+        <div class="story-controls">
+          <button class="btn" id="prev">◀ Prev</button>
+          <button class="btn" id="next">Next ▶</button>
+        </div>
+      </section>
+
+      <!-- Video gallery -->
+      <section id="videos" class="card">
+        <h2 style="margin:0 0 8px">Cartoon Videos (YouTube)</h2>
+        <p style="margin:0 0 10px;color:var(--muted)">Replace the sample videos with your own channel's video IDs in the code.</p>
+        <div class="videos" id="video-grid">
+          <!-- video iframes inserted by JS -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="card subscribe">
+        <div style="font-weight:700">Join our mailing list</div>
+      </div>
+
+      <div style="height:18px"></div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px">About KidoTales</h3>
+        <p style="margin:0;color:var(--muted)">KidoTales is a bright place for children to enjoy short stories, learn simple lessons and watch safe cartoons. You can embed your YouTube videos here.</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+      <div>© <strong>KidoTales</strong> — Made with ❤️ for kids</div>
+      <div>Built for demo • Replace content with your own</div>
+    </div>
+  </footer>
+
+  <script>
+    // Sample stories data (replace or extend)
+    const stories = [
+      {title:'The Little Red Kite', text:'Once upon a time a little kite learned to fly high. It shared its colors with everyone and taught children how to be brave.'},
+      {title:'Sammy the Curious Squirrel', text:'Sammy loved to explore. He found a magic nut that taught him about sharing and friendship.'},
+      {title:'Luna and the Moonlight', text:'Luna the bunny could not sleep. She followed the moon and learned bedtime breathing that helped her relax.'}
+    ];
+
+    const videos = ['dQw4w9WgXcQ','M7lc1UVf-VE','VIDEO_ID_3'];
+    // NOTE: Replace values above with your YouTube video IDs (not the full URL)
+
+    // Render stories
+    const storyList = document.getElementById('story-list');
+    let storyIndex = 0;
+    function renderStory(i){
+      storyList.innerHTML = '';
+      const s = stories[i];
+      const el = document.createElement('div');
+      el.className = 'story-card card';
+      el.innerHTML = `
+        <div class="story-thumb">📘</div>
+        <div class="story-body">
+          <h3>${s.title}</h3>
+          <p>${s.text}</p>
+        </div>
+      `;
+      storyList.appendChild(el);
+    }
+    document.getElementById('prev').addEventListener('click',()=>{
+      storyIndex = (storyIndex - 1 + stories.length) % stories.length; renderStory(storyIndex);
+    });
+    document.getElementById('next').addEventListener('click',()=>{
+      storyIndex = (storyIndex + 1) % stories.length; renderStory(storyIndex);
+    });
+    renderStory(storyIndex);
+
+    // Render videos
+    const videoGrid = document.getElementById('video-grid');
+    videos.forEach(id=>{
+      const wrapper = document.createElement('div');
+      wrapper.className = 'video-embed';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}`;
+      iframe.setAttribute('allowfullscreen','');
+      iframe.style.width='100%';iframe.style.height='100%';iframe.style.border='0';
+      wrapper.appendChild(iframe);
+      videoGrid.appendChild(wrapper);
+    });
+
+  </script>
+</body>
+</html>
