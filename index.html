@@ -3,118 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kido Tales – Fun Learning for Kids</title>
+  <title>Kido Tales - Learn with Fun!</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive;
-      background: linear-gradient(to bottom, #fceabb, #f8b500);
+      background: linear-gradient(to bottom right, #ffd6ff, #caffbf);
       margin: 0;
-      padding: 0;
       text-align: center;
-      color: #333;
-      overflow-x: hidden;
     }
+
     header {
-      background-color: #ff6f61;
+      background-color: #ff70a6;
       color: white;
-      padding: 20px 0;
-      font-size: 2em;
-      animation: slideDown 1.5s ease;
+      padding: 20px;
+      font-size: 2.5em;
+      animation: slideDown 1s ease-in-out;
     }
+
     @keyframes slideDown {
       from { transform: translateY(-100px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    section {
-      margin: 30px auto;
-      max-width: 900px;
-      background: #fff8e1;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      padding: 20px;
-    }
-    h2 {
-      color: #ff6f61;
-    }
-    .grid {
+
+    .alphabet-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
       gap: 15px;
-      margin-top: 15px;
-    }
-    .card {
-      background-color: #ffe082;
       padding: 20px;
-      border-radius: 15px;
-      transition: transform 0.3s;
-      font-size: 1.5em;
     }
-    .card:hover {
+
+    .letter {
+      background-color: #ffb3c6;
+      color: #fff;
+      font-size: 2em;
+      border-radius: 20px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .letter:hover {
       transform: scale(1.1);
-      background-color: #ffcc80;
+      background-color: #ff70a6;
     }
-    .video-section iframe {
-      width: 100%;
-      height: 300px;
-      border-radius: 10px;
+
+    section {
+      margin-top: 40px;
     }
+
+    iframe {
+      width: 320px;
+      height: 200px;
+      border-radius: 20px;
+      margin: 10px;
+    }
+
     footer {
-      background-color: #ff6f61;
-      color: white;
+      background-color: #a2d2ff;
       padding: 10px;
-      font-size: 1em;
-      margin-top: 20px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <header>
-    🌈 Kido Tales – Fun Learning for Kids 🎵
-  </header>
+
+  <header>Kido Tales - Fun Learning for Kids 🎨</header>
+
+  <h2>🔤 Learn Alphabets with Sound</h2>
+  <div class="alphabet-container" id="alphabetContainer"></div>
 
   <section>
-    <h2>Learn ABC</h2>
-    <div class="grid">
-      <div class="card">A</div>
-      <div class="card">B</div>
-      <div class="card">C</div>
-      <div class="card">D</div>
-      <div class="card">E</div>
-      <div class="card">F</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Learn Numbers</h2>
-    <div class="grid">
-      <div class="card">1</div>
-      <div class="card">2</div>
-      <div class="card">3</div>
-      <div class="card">4</div>
-      <div class="card">5</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Colors & Animals</h2>
-    <div class="grid">
-      <div class="card">🐶 Dog</div>
-      <div class="card">🐱 Cat</div>
-      <div class="card">🐘 Elephant</div>
-      <div class="card">🐰 Rabbit</div>
-      <div class="card">🦁 Lion</div>
-    </div>
-  </section>
-
-  <section class="video-section">
-    <h2>🎬 Watch and Learn</h2>
-    <iframe src="https://www.youtube.com/embed/tVlcKp3bWH8" allowfullscreen></iframe>
+    <h2>🎬 Learning Videos</h2>
     <iframe src="https://www.youtube.com/embed/hq3yfQnllfQ" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/tVlcKp3bWH8" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/ho08YLYDM88" allowfullscreen></iframe>
   </section>
 
-  <footer>
-    © 2025 Kido Tales | Designed with ❤️ for Kids Learning
-  </footer>
+  <footer>© 2025 Kido Tales | Learn with Fun</footer>
+
+  <script>
+    const alphabetContainer = document.getElementById('alphabetContainer');
+    const sounds = {
+      A: 'https://www.soundjay.com/english/a-for-apple.mp3',
+      B: 'https://www.soundjay.com/english/b-for-ball.mp3',
+      C: 'https://www.soundjay.com/english/c-for-cat.mp3'
+      // آپ باقی حروف بھی شامل کر سکتے ہیں جیسے D, E, F وغیرہ
+    };
+
+    // A to Z letters بنائیں
+    for (let i = 65; i <= 90; i++) {
+      const letter = String.fromCharCode(i);
+      const div = document.createElement('div');
+      div.className = 'letter';
+      div.textContent = letter;
+
+      div.addEventListener('click', () => {
+        const sound = new Audio(sounds[letter] || '');
+        if (sound.src) sound.play();
+        alert(letter + " for " + (letter === 'A' ? 'Apple 🍎' : letter === 'B' ? 'Ball ⚽' : 'Cat 🐱'));
+      });
+
+      alphabetContainer.appendChild(div);
+    }
+  </script>
+
 </body>
 </html>
+
 
