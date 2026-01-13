@@ -1,304 +1,212 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-<head> 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kido Tales - ABC & Counting 1-100 | Kids Learning</title>
+<head>
+  <meta charset="UTF-8" />
+  <title>Kido Tales – Kids Learning</title>
 
-  <!-- Google verification -->
-  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-  <!-- SEO meta -->
-  <meta name="description" content="Kido Tales - Free kids learning: full ABC, counting 1-100, English & Urdu support, free kids books, math learning for children, YouTube educational videos." />
-  <meta name="keywords" content="kids learning, urdu kids books, english alphabets, math learning for children, free kids education, youtube learning videos, counting 1 to 100, abc for kids, animals and birds for kids" />
-  <meta name="author" content="Numan Ishaq" />
-  <meta name="robots" content="index, follow" />
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Social preview (optional image change if you upload a logo) -->
-  <meta property="og:title" content="Kido Tales - Fun Learning for Kids" />
-  <meta property="og:description" content="Interactive learning: ABC, numbers, colors, animals, birds, school books and YouTube videos for kids." />
-  <meta property="og:url" content="https://nomiali1.github.io/kido-tales-website/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://nomiali1.github.io/kido-tales-website/kido-logo.png" />
+  <!-- Swiper Slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
   <style>
-    :root{
-      --accent1:#FF8A65; --accent2:#7EE7A6; --bg1:#FFF8F2; --muted:#5B6B7A; --card:#FFFFFF;
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9fbff;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;background:linear-gradient(180deg,var(--bg1),#F0FFF4);color:#14213D}
-    header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;gap:12px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:22px;box-shadow:0 10px 30px rgba(16,24,40,.08)}
-    .title{font-size:20px;font-weight:800}
-    .tag{font-size:13px;color:var(--muted)}
-    .container{max-width:1200px;margin:12px auto;padding:0 16px}
-    .hero{display:flex;gap:16px;align-items:center;padding:16px;background:var(--card);border-radius:14px;box-shadow:0 12px 30px rgba(16,24,40,.06)}
-    .hero h1{margin:0;font-size:26px}
-    .hero p{margin:6px 0;color:var(--muted)}
-    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:14px}
-    @media(min-width:1000px){.grid{grid-template-columns:1fr 360px}}
-    section.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 10px 30px rgba(16,24,40,.06)}
-    .section-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .section-title h2{margin:0;font-size:18px}
-    .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:12px;margin-top:12px}
-    .tile{background:#fff;border-radius:12px;padding:14px;min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:700;box-shadow:0 8px 22px rgba(16,24,40,.04);cursor:pointer;transition:transform .18s,box-shadow .18s}
-    .tile:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(16,24,40,.08)}
-    .tile .big{font-size:22px}
-    .tile img{width:70px;height:70px;object-fit:contain;border-radius:10px;}
-    aside .card{position:sticky;top:18px}
-    .videos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .video{aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:6px solid #fff}
-    .books-list{padding-left:12px}
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:rgba(0,0,0,.8);color:#fff;padding:10px 14px;border-radius:12px;font-size:14px;z-index:9999}
-    footer{max-width:1200px;margin:28px auto 60px;color:var(--muted);font-size:13px;padding:0 16px}
-    .controls{display:flex;gap:8px;align-items:center}
-    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;background:linear-gradient(90deg,var(--accent2),var(--accent1));color:white;font-weight:700}
-    .btn.secondary{background:transparent;border:1px solid rgba(0,0,0,.06);color:var(--muted)}
-    .search{padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.06);width:180px}
-    /* small responsive tweaks */
-    @media(max-width:700px){
-      .logo{width:48px;height:48px;font-size:18px}
-      .hero{flex-direction:column;align-items:flex-start}
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      margin-left: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(135deg,#6ec1ff,#eaf6ff);
+      animation: fade 1.5s ease;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #004aad;
+    }
+
+    /* SECTION */
+    .section {
+      padding: 60px 40px;
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #004aad;
+    }
+
+    /* CARDS */
+    .card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,.15);
+      transition: transform .3s;
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card p {
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 25px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #004aad;
+      color: white;
+    }
+
+    @keyframes fade {
+      from {opacity:0; transform:translateY(30px)}
+      to {opacity:1}
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="brand">
-      <div class="logo">KT</div>
-      <div>
-        <div class="title">Kido Tales</div>
-        <div class="tag">ABC • Counting 1–100 • Animals • Birds • Books</div>
-      </div>
-    </div>
-    <div class="controls">
-      <input class="search" id="searchBox" placeholder="Search A or 12..." />
-      <button class="btn" onclick="playAllABC()">Play ABC</button>
-      <button class="btn secondary" onclick="stopSpeech()">Stop</button>
-    </div>
-  </header>
 
-  <main class="container">
-    <div class="hero card">
-      <div style="flex:1">
-        <h1>Welcome to Kido Tales — Fun & Interactive Learning for Kids!</h1>
-        <p>Click any letter, number, animal, or bird to hear and learn. Use Play ABC for automatic A→Z. Replace video/book links with your own to grow your channel.</p>
+<body>
+<div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<script type="text/babel">
+
+function Navbar(){
+  return(
+    <div className="navbar">
+      <strong>Kido Tales</strong>
+      <div>
+        <a href="#animals">Animals</a>
+        <a href="#birds">Birds</a>
       </div>
-      <div style="width:320px">
-        <div style="background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(16,24,40,.04)">
-          <strong>For parents:</strong>
-          <p style="margin:6px 0;color:var(--muted)">Supervise small kids. Use headphones for clearer sound. Replace sample resources with your content.</p>
+    </div>
+  )
+}
+
+function Hero(){
+  return(
+    <div className="hero">
+      <h1>Fun Learning for Kids</h1>
+      <p>Real Animals • Birds • Animations • Videos</p>
+    </div>
+  )
+}
+
+function Animals(){
+  return(
+    <div className="section" id="animals">
+      <h2>Animals</h2>
+      <div className="grid">
+        <Card img="images/lion.jpg" name="Lion"/>
+        <Card img="images/tiger.jpg" name="Tiger"/>
+        <Card img="images/elephant.jpg" name="Elephant"/>
+      </div>
+    </div>
+  )
+}
+
+function Birds(){
+  return(
+    <div className="section" id="birds">
+      <h2>Birds Slider</h2>
+
+      <div className="swiper mySwiper">
+        <div className="swiper-wrapper">
+
+          <div className="swiper-slide">
+            <Card img="images/parrot.jpg" name="Parrot"/>
+          </div>
+
+          <div className="swiper-slide">
+            <Card img="images/eagle.jpg" name="Eagle"/>
+          </div>
+
         </div>
       </div>
     </div>
+  )
+}
 
-    <section class="card">
-      <div class="section-title"><h2>🔤 Alphabet (A-Z)</h2></div>
-      <div class="grid-cards" id="alphabet-area"></div>
-
-      <div class="section-title" style="margin-top:20px"><h2>🔢 Counting (1-100)</h2></div>
-      <div style="margin-top:10px"><input id="countStart" class="search" placeholder="Start (e.g. 1)" /><input id="countEnd" class="search" placeholder="End (e.g. 20)" /><button class="btn" onclick="playRange()">Play Range</button></div>
-      <div class="grid-cards" id="numbers-area" style="margin-top:12px;max-height:520px;overflow:auto"></div>
-
-      <div class="section-title" style="margin-top:20px"><h2>🦁 Animals</h2></div>
-      <div class="grid-cards" id="animals-area"></div>
-
-      <div class="section-title" style="margin-top:20px"><h2>🐦 Birds</h2></div>
-      <div class="grid-cards" id="birds-area"></div>
-    </section>
-
-    <aside>
-      <div class="card">
-        <h3>🎬 Learning Videos</h3>
-        <p class="muted">Replace these with your own YouTube videos for channel growth.</p>
-        <div class="videos" id="video-grid"></div>
-      </div>
-
-      <div style="height:12px"></div>
-
-      <div class="card">
-        <h3>📚 Free School Books</h3>
-        <ul class="books-list" id="books-list"></ul>
-      </div>
-    </aside>
-  </main>
-
-  <footer>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>© <strong>Kido Tales</strong> — Created by Numan Ishaq</div>
-      <div class="muted">Free kids education • ABC • Animals • Birds • Videos</div>
+function Card({img,name}){
+  return(
+    <div className="card">
+      <img src={img}/>
+      <p>{name}</p>
     </div>
-  </footer>
-
-<script>
-/* ---------------- Data (edit these arrays with your content) ---------------- */
-// YouTube video IDs (replace with your own channel video IDs)
-const videos = ['hq3yfQnllfQ','tVlcKp3bWH8','ho08YLYDM88','M7lc1UVf-VE'];
-
-// School books (replace with your PDF URLs)
-const books = [
-  {title:'English Book - Beginner', url:'#'},
-  {title:'Math Book - Grade 1', url:'#'},
-  {title:'Urdu Book - Starter', url:'#'}
-];
-
-// Letter example words
-const words = {
-  A:'Apple',B:'Ball',C:'Cat',D:'Dog',E:'Elephant',F:'Fish',G:'Grapes',H:'Hat',I:'Ice cream',J:'Juice',K:'Kite',
-  L:'Lion',M:'Monkey',N:'Nest',O:'Orange',P:'Parrot',Q:'Queen',R:'Rabbit',S:'Sun',T:'Tree',U:'Umbrella',V:'Van',W:'Whale',X:'Xylophone',Y:'Yak',Z:'Zebra'
-};
-
-// Animals with optional sound and animated GIF image
-const animals = [
-  {name:'Elephant', sound:'https://www.soundjay.com/animal/elephant-1.mp3', img:'https://media.giphy.com/media/4ZgLPakqXCKU0/giphy.gif'},
-  {name:'Cow', sound:'https://www.soundjay.com/animal/cow-moo1.mp3', img:'https://media.giphy.com/media/l0ExhA0xS9rKJXcOk/giphy.gif'},
-  {name:'Dog', sound:'https://www.soundjay.com/animal/dog-bark-01.mp3', img:'https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif'},
-  {name:'Cat', sound:'https://www.soundjay.com/animal/cat-meow-1.mp3', img:'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif'},
-  {name:'Lion', sound:'https://www.soundjay.com/animal/lion-roar-1.mp3', img:'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif'},
-  {name:'Rabbit', img:'https://media.giphy.com/media/YTWLvy7zI3dI8/giphy.gif'},
-  {name:'Horse', img:'https://media.giphy.com/media/26Ff3V1uR0AZ5n0sA/giphy.gif'}
-];
-
-// Birds animated images
-const birds = [
-  {name:'Parrot', img:'https://media.giphy.com/media/W3QKEujo8vztC/giphy.gif'},
-  {name:'Peacock', img:'https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif'},
-  {name:'Sparrow', img:'https://media.giphy.com/media/3o6gDWzmAzrpi5DQU8/giphy.gif'},
-  {name:'Crow', img:'https://media.giphy.com/media/l1J9urH0mB7qN8N2Y/giphy.gif'},
-  {name:'Duck', img:'https://media.giphy.com/media/l0MYEw2vT6G7YV9N6/giphy.gif'},
-  {name:'Eagle', img:'https://media.giphy.com/media/l0MYtjv3f34WfxP4Y/giphy.gif'},
-  {name:'Owl', img:'https://media.giphy.com/media/xT9IgoJwP5Z4cOZKcM/giphy.gif'}
-];
-
-/* ---------------- Speech & helper functions ---------------- */
-let synth = window.speechSynthesis;
-function speak(text){
-  if(!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = 0.95;
-  synth.speak(u);
-}
-function stopSpeech(){ if(synth) synth.cancel(); }
-
-/* number to words 0-100 */
-function numberToWords(n){
-  const under20 = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
-  const tens = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
-  if(n<20) return under20[n];
-  if(n<100){
-    const t = Math.floor(n/10), r = n%10;
-    return tens[t] + (r?(' '+under20[r]):'');
-  }
-  if(n===100) return 'one hundred';
-  return String(n);
+  )
 }
 
-function flash(el){ el.style.transform='translateY(-8px) scale(1.02)'; el.style.boxShadow='0 24px 40px rgba(16,24,40,.12)'; setTimeout(()=>{ el.style.transform=''; el.style.boxShadow=''; },450); }
-function showToast(text){ const t=document.createElement('div'); t.className='toast'; t.textContent=text; document.body.appendChild(t); setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),400); },1400); }
+function App(){
+  React.useEffect(()=>{
+    new Swiper(".mySwiper",{
+      slidesPerView: 2,
+      spaceBetween: 30,
+      loop: true,
+      autoplay:{delay:2000}
+    })
+  },[])
 
-/* ---------------- Render Alphabets ---------------- */
-const alphaArea = document.getElementById('alphabet-area');
-for (let i=65;i<=90;i++){
-  const L = String.fromCharCode(i);
-  const tile = document.createElement('div');
-  tile.className = 'tile';
-  tile.innerHTML = `<div class="big">${L}</div><div class="small">${words[L]||''}</div>`;
-  tile.addEventListener('click', ()=> { speak(`${L}. ${words[L]||''}`); flash(tile); showToast(`${L} for ${words[L]||''}`); });
-  alphaArea.appendChild(tile);
+  return(
+    <>
+      <Navbar/>
+      <Hero/>
+      <Animals/>
+      <Birds/>
+      <footer>© 2026 Kido Tales</footer>
+    </>
+  )
 }
 
-/* ---------------- Render Numbers 1-100 ---------------- */
-const numArea = document.getElementById('numbers-area');
-for (let n=1;n<=100;n++){
-  const tile = document.createElement('div');
-  tile.className = 'tile';
-  tile.innerHTML = `<div class="big">${n}</div><div class="small">${numberToWords(n)}</div>`;
-  tile.addEventListener('click', ()=> { speak(`${n}. ${numberToWords(n)}`); flash(tile); showToast(`${n} — ${numberToWords(n)}`); });
-  numArea.appendChild(tile);
-}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
 
-/* ---------------- Render Animals ---------------- */
-const aArea = document.getElementById('animals-area');
-animals.forEach(a=>{
-  const tile = document.createElement('div'); tile.className='tile';
-  tile.innerHTML = `<img src="${a.img}" alt="${a.name}"><div class="big">${a.name}</div>`;
-  tile.addEventListener('click', ()=> {
-    if(a.sound) { new Audio(a.sound).play(); } else { speak(a.name); }
-    flash(tile); showToast(a.name);
-  });
-  aArea.appendChild(tile);
-});
-
-/* ---------------- Render Birds ---------------- */
-const bArea = document.getElementById('birds-area');
-birds.forEach(b=>{
-  const tile = document.createElement('div'); tile.className='tile';
-  tile.innerHTML = `<img src="${b.img}" alt="${b.name}"><div class="big">${b.name}</div>`;
-  tile.addEventListener('click', ()=> { speak(b.name); flash(tile); showToast(b.name); });
-  bArea.appendChild(tile);
-});
-
-/* ---------------- Videos & Books ---------------- */
-const videoGrid = document.getElementById('video-grid');
-videos.forEach(id=>{
-  const v = document.createElement('div'); v.className='video';
-  v.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`;
-  videoGrid.appendChild(v);
-});
-const booksList = document.getElementById('books-list');
-books.forEach(b=>{
-  const li = document.createElement('li'); li.innerHTML = `<a href="${b.url}" target="_blank">${b.title}</a>`;
-  booksList.appendChild(li);
-});
-
-/* ---------------- Controls: Play ABC, Play Range, Search ---------------- */
-let abcInterval = null;
-function playAllABC(){
-  stopSpeech();
-  const letters = Array.from({length:26},(_,i)=>String.fromCharCode(65+i));
-  let i=0;
-  abcInterval = setInterval(()=> {
-    if(i>=letters.length){ clearInterval(abcInterval); abcInterval=null; return; }
-    const L = letters[i++];
-    const tiles = Array.from(document.querySelectorAll('#alphabet-area .tile'));
-    const idx = L.charCodeAt(0) - 65;
-    if(tiles[idx]) tiles[idx].click();
-  }, 1200);
-}
-function stopSpeech(){ if(synth) synth.cancel(); if(abcInterval){ clearInterval(abcInterval); abcInterval=null; } }
-
-document.getElementById('searchBox').addEventListener('input', function(){
-  const v = this.value.trim().toUpperCase();
-  if(!v) return;
-  if(/^[A-Z]$/.test(v)){
-    const idx = v.charCodeAt(0)-65;
-    const tiles = document.querySelectorAll('#alphabet-area .tile');
-    if(tiles[idx]) tiles[idx].scrollIntoView({behavior:'smooth',block:'center'});
-  } else if(/^\d+$/.test(v)){
-    const n = parseInt(v,10);
-    const tiles = Array.from(document.querySelectorAll('#numbers-area .tile'));
-    if(n>=1 && n<=100) tiles[n-1].scrollIntoView({behavior:'smooth',block:'center'});
-  }
-});
-
-function playRange(){
-  const s = parseInt(document.getElementById('countStart').value||'1',10);
-  const e = parseInt(document.getElementById('countEnd').value||'10',10);
-  if(isNaN(s)||isNaN(e)||s<1||e>100||s>e){ alert('Please enter a valid range 1-100'); return; }
-  let cur = s;
-  stopSpeech();
-  const iv = setInterval(()=> {
-    speak(`${cur}. ${numberToWords(cur)}`);
-    const tiles = document.querySelectorAll('#numbers-area .tile');
-    tiles[cur-1].style.transform='translateY(-8px) scale(1.02)';
-    setTimeout(()=>{ tiles[cur-1].style.transform=''; },600);
-    cur++;
-    if(cur>e) clearInterval(iv);
-  }, 900);
-}
 </script>
 </body>
 </html>
