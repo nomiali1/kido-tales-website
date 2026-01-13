@@ -1,212 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kido Tales – Kids Learning</title>
-
-  <!-- React CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-  <!-- Babel -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Swiper Slider -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f9fbff;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 40px;
-      background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,.1);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .navbar a {
-      text-decoration: none;
-      margin-left: 20px;
-      color: #333;
-      font-weight: 600;
-    }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(135deg,#6ec1ff,#eaf6ff);
-      animation: fade 1.5s ease;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      color: #004aad;
-    }
-
-    /* SECTION */
-    .section {
-      padding: 60px 40px;
-    }
-
-    .section h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #004aad;
-    }
-
-    /* CARDS */
-    .card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,.15);
-      transition: transform .3s;
-    }
-
-    .card:hover {
-      transform: scale(1.08);
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .card p {
-      padding: 10px;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-      gap: 25px;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #004aad;
-      color: white;
-    }
-
-    @keyframes fade {
-      from {opacity:0; transform:translateY(30px)}
-      to {opacity:1}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kido Tales — Kids Learning</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<div id="root"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<!-- Navbar -->
+<header>
+    <nav class="navbar">
+        <a href="#home" class="logo">Kido Tales</a>
+        <ul class="menu">
+            <li><a href="#abc">Alphabet</a></li>
+            <li><a href="#count">Counting</a></li>
+            <li><a href="#animals">Animals</a></li>
+            <li><a href="#birds">Birds</a></li>
+        </ul>
+    </nav>
+</header>
 
-<script type="text/babel">
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <h1>Welcome to <span>Kido Tales</span></h1>
+    <p>Learn ABC, Counting, Animals & Birds the fun way!</p>
+</section>
 
-function Navbar(){
-  return(
-    <div className="navbar">
-      <strong>Kido Tales</strong>
-      <div>
-        <a href="#animals">Animals</a>
-        <a href="#birds">Birds</a>
-      </div>
+<!-- Alphabet -->
+<section id="abc" class="section">
+    <h2>Alphabet A–Z</h2>
+    <div class="grid">
+        <!-- Example letter -->
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+        <!-- باقی حروف یہاں repeat کریں -->
     </div>
-  )
-}
+</section>
 
-function Hero(){
-  return(
-    <div className="hero">
-      <h1>Fun Learning for Kids</h1>
-      <p>Real Animals • Birds • Animations • Videos</p>
+<!-- Counting -->
+<section id="count" class="section">
+    <h2>Counting 1–100</h2>
+    <div class="grid count-grid">
+        <!-- نمبر 1 سے 100 تک -->
+        <script>
+            for (let i=1; i<=100; i++){
+                document.write('<div class="box">'+ i +'</div>');
+            }
+        </script>
     </div>
-  )
-}
+</section>
 
-function Animals(){
-  return(
-    <div className="section" id="animals">
-      <h2>Animals</h2>
-      <div className="grid">
-        <Card img="images/lion.jpg" name="Lion"/>
-        <Card img="images/tiger.jpg" name="Tiger"/>
-        <Card img="images/elephant.jpg" name="Elephant"/>
-      </div>
+<!-- Animals Gallery -->
+<section id="animals" class="section">
+    <h2>Animals</h2>
+    <div class="gallery">
+        <div class="card"><img src="images/lion.jpg" alt="Lion"><p>Lion</p></div>
+        <div class="card"><img src="images/elephant.jpg" alt="Elephant"><p>Elephant</p></div>
+        <div class="card"><img src="images/tiger.jpg" alt="Tiger"><p>Tiger</p></div>
     </div>
-  )
-}
+</section>
 
-function Birds(){
-  return(
-    <div className="section" id="birds">
-      <h2>Birds Slider</h2>
-
-      <div className="swiper mySwiper">
-        <div className="swiper-wrapper">
-
-          <div className="swiper-slide">
-            <Card img="images/parrot.jpg" name="Parrot"/>
-          </div>
-
-          <div className="swiper-slide">
-            <Card img="images/eagle.jpg" name="Eagle"/>
-          </div>
-
-        </div>
-      </div>
+<!-- Birds Gallery -->
+<section id="birds" class="section">
+    <h2>Birds</h2>
+    <div class="gallery">
+        <div class="card"><img src="images/eagle.jpg" alt="Eagle"><p>Eagle</p></div>
+        <div class="card"><img src="images/parrot.jpg" alt="Parrot"><p>Parrot</p></div>
+        <div class="card"><img src="images/owl.jpg" alt="Owl"><p>Owl</p></div>
     </div>
-  )
-}
+</section>
 
-function Card({img,name}){
-  return(
-    <div className="card">
-      <img src={img}/>
-      <p>{name}</p>
-    </div>
-  )
-}
+<!-- Footer -->
+<footer>
+    © 2026 Kido Tales — All Rights Reserved.
+</footer>
 
-function App(){
-  React.useEffect(()=>{
-    new Swiper(".mySwiper",{
-      slidesPerView: 2,
-      spaceBetween: 30,
-      loop: true,
-      autoplay:{delay:2000}
-    })
-  },[])
-
-  return(
-    <>
-      <Navbar/>
-      <Hero/>
-      <Animals/>
-      <Birds/>
-      <footer>© 2026 Kido Tales</footer>
-    </>
-  )
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
-
-</script>
 </body>
 </html>
