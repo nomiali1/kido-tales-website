@@ -1,81 +1,157 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kido Tales — Kids Learning</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Kido Learning – Read & Listen</title>
+
+<!-- React -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background:#f2f7ff;
+}
+
+/* NAVBAR */
+.nav{
+  background:white;
+  padding:15px 40px;
+  display:flex;
+  justify-content:space-between;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+
+.nav h2{color:#004aad}
+
+/* HERO */
+.hero{
+  padding:70px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#6ec1ff,#eaf6ff);
+}
+
+.hero h1{
+  font-size:3rem;
+  color:#004aad;
+}
+
+/* GRID */
+.grid{
+  padding:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+/* CARD */
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 15px 30px rgba(0,0,0,.15);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:scale(1.1);
+}
+
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+}
+
+.letter{
+  font-size:3rem;
+  color:#004aad;
+}
+
+.word{
+  font-size:1.2rem;
+  font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+  background:#004aad;
+  color:white;
+  padding:15px;
+  text-align:center;
+}
+</style>
 </head>
+
 <body>
+<div id="root"></div>
 
-<!-- Navbar -->
-<header>
-    <nav class="navbar">
-        <a href="#home" class="logo">Kido Tales</a>
-        <ul class="menu">
-            <li><a href="#abc">Alphabet</a></li>
-            <li><a href="#count">Counting</a></li>
-            <li><a href="#animals">Animals</a></li>
-            <li><a href="#birds">Birds</a></li>
-        </ul>
-    </nav>
-</header>
+<script type="text/babel">
 
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <h1>Welcome to <span>Kido Tales</span></h1>
-    <p>Learn ABC, Counting, Animals & Birds the fun way!</p>
-</section>
+const data = [
+  {letter:"A", word:"Apple", img:"images/apple.jpg", sound:"sounds/a.mp3"},
+  {letter:"B", word:"Ball", img:"images/ball.jpg", sound:"sounds/b.mp3"},
+  {letter:"C", word:"Cat", img:"images/cat.jpg", sound:"sounds/c.mp3"},
+  {letter:"D", word:"Dog", img:"images/dog.jpg", sound:"sounds/d.mp3"},
+  // 👉 اسی طرح E سے Z تک add کریں
+]
 
-<!-- Alphabet -->
-<section id="abc" class="section">
-    <h2>Alphabet A–Z</h2>
-    <div class="grid">
-        <!-- Example letter -->
-        <div class="box">A</div>
-        <div class="box">B</div>
-        <div class="box">C</div>
-        <!-- باقی حروف یہاں repeat کریں -->
+function Navbar(){
+  return(
+    <div className="nav">
+      <h2>Kido Learning</h2>
+      <strong>Read & Listen</strong>
     </div>
-</section>
+  )
+}
 
-<!-- Counting -->
-<section id="count" class="section">
-    <h2>Counting 1–100</h2>
-    <div class="grid count-grid">
-        <!-- نمبر 1 سے 100 تک -->
-        <script>
-            for (let i=1; i<=100; i++){
-                document.write('<div class="box">'+ i +'</div>');
-            }
-        </script>
+function Hero(){
+  return(
+    <div className="hero">
+      <h1>Learn A to Z</h1>
+      <p>Reading + Listening for Kids</p>
     </div>
-</section>
+  )
+}
 
-<!-- Animals Gallery -->
-<section id="animals" class="section">
-    <h2>Animals</h2>
-    <div class="gallery">
-        <div class="card"><img src="images/lion.jpg" alt="Lion"><p>Lion</p></div>
-        <div class="card"><img src="images/elephant.jpg" alt="Elephant"><p>Elephant</p></div>
-        <div class="card"><img src="images/tiger.jpg" alt="Tiger"><p>Tiger</p></div>
+function Card({item}){
+  const playSound = () =>{
+    new Audio(item.sound).play()
+  }
+
+  return(
+    <div className="card" onClick={playSound}>
+      <div className="letter">{item.letter}</div>
+      <img src={item.img}/>
+      <div className="word">{item.word}</div>
+      <small>Click to Listen 🔊</small>
     </div>
-</section>
+  )
+}
 
-<!-- Birds Gallery -->
-<section id="birds" class="section">
-    <h2>Birds</h2>
-    <div class="gallery">
-        <div class="card"><img src="images/eagle.jpg" alt="Eagle"><p>Eagle</p></div>
-        <div class="card"><img src="images/parrot.jpg" alt="Parrot"><p>Parrot</p></div>
-        <div class="card"><img src="images/owl.jpg" alt="Owl"><p>Owl</p></div>
-    </div>
-</section>
+function App(){
+  return(
+    <>
+      <Navbar/>
+      <Hero/>
+      <div className="grid">
+        {data.map((item,i)=>(
+          <Card key={i} item={item}/>
+        ))}
+      </div>
+      <footer>© 2026 Kido Learning</footer>
+    </>
+  )
+}
 
-<!-- Footer -->
-<footer>
-    © 2026 Kido Tales — All Rights Reserved.
-</footer>
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
 
+</script>
 </body>
 </html>
